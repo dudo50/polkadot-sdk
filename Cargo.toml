@@ -509,6 +509,7 @@ members = [
 
 	"templates/parachain/node",
 	"templates/parachain/pallets/template",
+	"templates/parachain/pallets/xnft",
 	"templates/parachain/runtime",
 ]
 default-members = ["polkadot", "substrate/bin/node/cli"]

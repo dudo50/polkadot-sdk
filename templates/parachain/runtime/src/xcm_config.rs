@@ -98,7 +98,7 @@ pub type Barrier = TrailingSetTopicAsId<
 			WithComputedOrigin<
 				(
 					AllowTopLevelPaidExecutionFrom<Everything>,
-					AllowExplicitUnpaidExecutionFrom<ParentOrParentsExecutivePlurality>,
+					AllowExplicitUnpaidExecutionFrom<Everything>,
 					// ^^^ Parent and its exec plurality get free execution
 				),
 				UniversalLocation,

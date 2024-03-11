@@ -10465,6 +10465,26 @@ dependencies = [
 ]
 
 [[package]]
+name = "pallet-parachain-xnft"
+version = "0.1.0"
+dependencies = [
+ "cumulus-pallet-xcm",
+ "cumulus-primitives-core",
+ "frame-benchmarking",
+ "frame-support",
+ "frame-system",
+ "pallet-balances",
+ "parity-scale-codec",
+ "scale-info",
+ "serde",
+ "sp-core",
+ "sp-io",
+ "sp-runtime",
+ "sp-std 14.0.0",
+ "staging-xcm",
+]
+
+[[package]]
 name = "pallet-parameters"
 version = "0.0.1"
 dependencies = [
@@ -11319,6 +11339,7 @@ dependencies = [
  "pallet-collator-selection",
  "pallet-message-queue",
  "pallet-parachain-template",
+ "pallet-parachain-xnft",
  "pallet-session",
  "pallet-sudo",
  "pallet-timestamp",

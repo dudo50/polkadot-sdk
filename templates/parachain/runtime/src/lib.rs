@@ -21,6 +21,8 @@ use sp_runtime::{
 	ApplyExtrinsicResult, MultiSignature,
 };
 
+use xcm_config::{RelayLocation, XcmOriginToTransactDispatchOrigin, XcmRouter};
+
 use sp_std::prelude::*;
 #[cfg(feature = "std")]
 use sp_version::NativeVersion;
@@ -47,7 +49,6 @@ use pallet_xcm::{EnsureXcm, IsVoiceOfBody};
 use parachains_common::message_queue::{NarrowOriginToSibling, ParaIdToSibling};
 pub use sp_consensus_aura::sr25519::AuthorityId as AuraId;
 pub use sp_runtime::{MultiAddress, Perbill, Permill};
-use xcm_config::{RelayLocation, XcmOriginToTransactDispatchOrigin};
 
 #[cfg(any(feature = "std", test))]
 pub use sp_runtime::BuildStorage;
@@ -62,6 +63,9 @@ use xcm::latest::prelude::BodyId;
 
 /// Import the template pallet.
 pub use pallet_parachain_template;
+
+/// Import the xnft pallet
+pub use pallet_parachain_xnft;
 
 /// Alias to 512-bit hash when used in the context of a transaction signature on the chain.
 pub type Signature = MultiSignature;
@@ -493,6 +497,21 @@ impl pallet_parachain_template::Config for Runtime {
 	type WeightInfo = pallet_parachain_template::weights::SubstrateWeight<Runtime>;
 }
 
+/// Configure the pallet xnft in pallets/xnft.
+impl pallet_parachain_xnft::Config for Runtime {
+	type Currency = Balances;
+	type RuntimeEvent = RuntimeEvent;
+	type StringLimit = ConstU32<255>;
+	type JsonLimit = ConstU32<255>;
+	type CollectionLimit = ConstU32<255>;
+	type ParaIDLimit = ConstU32<9999>;
+	type CollectionsPerParachainLimit = ConstU32<9999>;
+	type NFTsPerParachainLimit = ConstU32<9999>;
+	type XcmSender = XcmRouter;
+	type RuntimeOrigin = RuntimeOrigin;
+	type RuntimeCall = RuntimeCall;
+}
+
 // Create the runtime by composing the FRAME pallets that were previously configured.
 construct_runtime!(
 	pub enum Runtime {
@@ -524,6 +543,8 @@ construct_runtime!(
 
 		// Template
 		TemplatePallet: pallet_parachain_template = 50,
+		XNFTPallet: pallet_parachain_xnft = 51,
+
 	}
 );
 
