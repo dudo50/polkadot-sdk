@@ -17,7 +17,6 @@ mod benchmarking;
 #[frame_support::pallet]
 pub mod pallet {
 	use codec::Encode;
-	use cumulus_pallet_xcm::Origin as CumulusOrigin;
 	use cumulus_primitives_core::ParaId;
 	use frame_support::{
 		pallet_prelude::*,
