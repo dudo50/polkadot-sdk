@@ -24,9 +24,7 @@ pub mod pallet {
 		traits::{Currency, LockableCurrency, ReservableCurrency},
 		BoundedVec,
 	};
-	use frame_system::{
-		pallet_prelude::{OriginFor, *},
-	};
+	use frame_system::pallet_prelude::{OriginFor, *};
 	use scale_info::prelude::vec;
 	use sp_std::prelude::*;
 	use xcm::latest::prelude::*;
@@ -357,7 +355,7 @@ pub mod pallet {
 
 					//We check if collection was added to other chain collections
 					ensure!(
-						OtherChainCollections::<T>::get(destination) 
+						OtherChainCollections::<T>::get(destination)
 							.unwrap_or_default()
 							.contains(&collection_copy),
 						Error::<T>::CollectionWasNotAddedToOtherChain
@@ -680,7 +678,8 @@ pub mod pallet {
 			);
 
 			//retrieve collection
-			let collection = OtherChainCollections::<T>::get(destination_parachain).unwrap_or_default();
+			let collection =
+				OtherChainCollections::<T>::get(destination_parachain).unwrap_or_default();
 			let coll = collection.iter().find(|x| x.collection_hash == collection_hash).unwrap();
 
 			//Make sure that the user owns the collection
@@ -757,8 +756,9 @@ pub mod pallet {
 			) {
 				Ok((_hash, _cost)) => {
 					//Otherwise insert nft into nfts
-					let _ =
-						OtherChainNonFungibles::<T>::mutate(destination_parachain, |x| -> Result<(), ()> {
+					let _ = OtherChainNonFungibles::<T>::mutate(
+						destination_parachain,
+						|x| -> Result<(), ()> {
 							if let Some(x) = x {
 								x.try_push(nft_with_hash).map_err(|_| ())?;
 								Ok(())
@@ -766,7 +766,8 @@ pub mod pallet {
 								*x = Some(vec![nft_with_hash].try_into().map_err(|_| ())?);
 								Ok(())
 							}
-						});
+						},
+					);
 
 					//Update collection size
 					let mut collection_size = CollectionSize::<T>::get(collection_hash).unwrap();
@@ -886,7 +887,8 @@ pub mod pallet {
 		) -> DispatchResult {
 			let _who = ensure_signed_or_root(origin)?.unwrap();
 
-			let mut collections = ReceivedCollections::<T>::get(origin_parachain).unwrap_or_default();
+			let mut collections =
+				ReceivedCollections::<T>::get(origin_parachain).unwrap_or_default();
 
 			//Go through collections, if collection corresponds to collections_hash, then we found
 			// the collection, set it to new mutable variable, otherwise return error
@@ -1051,8 +1053,9 @@ pub mod pallet {
 					let _ = NonFungibles::<T>::remove(nft_hash);
 
 					//Put nft to other chain non fungibles
-					let _ =
-						OtherChainNonFungibles::<T>::mutate(destination_parachain, |x| -> Result<(), ()> {
+					let _ = OtherChainNonFungibles::<T>::mutate(
+						destination_parachain,
+						|x| -> Result<(), ()> {
 							if let Some(x) = x {
 								x.try_push(nft).map_err(|_| ())?;
 								Ok(())
@@ -1060,7 +1063,8 @@ pub mod pallet {
 								*x = Some(vec![nft].try_into().map_err(|_| ())?);
 								Ok(())
 							}
-						});
+						},
+					);
 
 					//Check if nft was added to other chain non fungibles
 					ensure!(

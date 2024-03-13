@@ -9,7 +9,6 @@ use frame_support::{
 };
 use frame_system::EnsureRoot;
 use pallet_xcm::XcmPassthrough;
-use xcm_executor::traits::WithOriginFilter;
 use polkadot_parachain_primitives::primitives::Sibling;
 use polkadot_runtime_common::impls::ToAuthor;
 use xcm::latest::prelude::*;
@@ -21,7 +20,7 @@ use xcm_builder::{
 	SignedAccountId32AsNative, SignedToAccountId32, SovereignSignedViaLocation, TakeWeightCredit,
 	TrailingSetTopicAsId, UsingComponents, WithComputedOrigin, WithUniqueTopic,
 };
-use xcm_executor::XcmExecutor;
+use xcm_executor::{traits::WithOriginFilter, XcmExecutor};
 
 parameter_types! {
 	pub const RelayLocation: Location = Location::parent();
