@@ -508,7 +508,6 @@ impl pallet_parachain_xnft::Config for Runtime {
 	type CollectionsPerParachainLimit = ConstU32<9999>;
 	type NFTsPerParachainLimit = ConstU32<9999>;
 	type XcmSender = XcmRouter;
-	type RuntimeOrigin = RuntimeOrigin;
 	type RuntimeCall = RuntimeCall;
 }
 

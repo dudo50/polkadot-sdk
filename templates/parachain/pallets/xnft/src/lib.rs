@@ -68,8 +68,6 @@ pub mod pallet {
 			+ ReservableCurrency<Self::AccountId>
 			+ LockableCurrency<Self::AccountId>;
 
-		type RuntimeOrigin: From<<Self as SystemConfig>::RuntimeOrigin>;
-
 		/// The overarching call type; we assume sibling chains use the same type.
 		type RuntimeCall: From<Call<Self>> + Encode;
 
