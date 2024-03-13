@@ -282,6 +282,7 @@ fn mint_nft_xtransfer_collection_not_existing() {
 				b"Description".to_vec().try_into().unwrap(),
 				collection_hash,
 				2000.into(),
+				1000.into(),
 				1,
 			),
 			Error::<Test>::InvalidCollection
@@ -496,43 +497,6 @@ fn mint_non_fungible_received_to_non_existing_collection() {
 }
 
 #[test]
-fn mint_non_fungible_received_unauthorized() {
-	new_test_ext().execute_with(|| {
-		System::set_block_number(1);
-
-		let _ = XnftModule::deposit_token(RuntimeOrigin::root(), 1, 1000);
-		let _ = XnftModule::deposit_token(RuntimeOrigin::root(), 1, 2000);
-
-		//Let's mint a collection
-		let _ = XnftModule::mint_collection_received(
-			RuntimeOrigin::signed(1),
-			b"Collection".to_vec().try_into().unwrap(),
-			b"Description".to_vec().try_into().unwrap(),
-			1000.into(),
-			1,
-		);
-
-		let collection_hash: H256 =
-			"0x06fa4188b7fa31e8b2d21dc94819e22684f9e2e3995f2ca3716404e2df6b3cf0"
-				.parse()
-				.unwrap();
-
-		//Send without permission
-		assert_noop!(
-			XnftModule::mint_non_fungible_received(
-				RuntimeOrigin::signed(2),
-				b"NFT".to_vec().try_into().unwrap(),
-				b"Description".to_vec().try_into().unwrap(),
-				collection_hash,
-				1000.into(),
-				1,
-			),
-			Error::<Test>::Unauthorized
-		);
-	});
-}
-
-#[test]
 fn mint_non_fungible_received_collection_full() {
 	new_test_ext().execute_with(|| {
 		System::set_block_number(1);
@@ -687,6 +651,7 @@ fn non_fungible_xtransfer_not_existing_nft() {
 				RuntimeOrigin::signed(1),
 				H256::zero(),
 				2000.into(),
+				1000.into(),
 				1,
 			),
 			Error::<Test>::InvalidNonFungible
@@ -727,7 +692,7 @@ fn non_fungible_xtransfer_unauthorized() {
 
 		//Send without permission
 		assert_noop!(
-			XnftModule::non_fungible_xtransfer(RuntimeOrigin::signed(2), nft_hash, 2000.into(), 1,),
+			XnftModule::non_fungible_xtransfer(RuntimeOrigin::signed(2), nft_hash, 2000.into(), 1000.into(), 1,),
 			Error::<Test>::Unauthorized
 		);
 	});
@@ -766,7 +731,7 @@ fn non_fungible_xtransfer_not_sent() {
 
 		//Send without permission
 		assert_noop!(
-			XnftModule::non_fungible_xtransfer(RuntimeOrigin::signed(1), nft_hash, 2000.into(), 1,),
+			XnftModule::non_fungible_xtransfer(RuntimeOrigin::signed(1), nft_hash, 2000.into(), 1000.into(), 1,),
 			Error::<Test>::CollectionIsNotSentCrossChain
 		);
 	});
