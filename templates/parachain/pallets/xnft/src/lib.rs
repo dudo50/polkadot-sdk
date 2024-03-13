@@ -324,7 +324,7 @@ pub mod pallet {
 				Xcm(vec![
 					UnpaidExecution { weight_limit: Unlimited, check_origin: None },
 					Transact {
-						origin_kind: OriginKind::Xcm,
+						origin_kind: OriginKind::SovereignAccount,
 						require_weight_at_most: Weight::from_parts(1_000_000_000, 64 * 1024),
 						call: <T as Config>::RuntimeCall::from(
 							Call::<T>::mint_collection_received {
@@ -589,7 +589,7 @@ pub mod pallet {
 				Xcm(vec![
 					UnpaidExecution { weight_limit: Unlimited, check_origin: None },
 					Transact {
-						origin_kind: OriginKind::Xcm,
+						origin_kind: OriginKind::SovereignAccount,
 						require_weight_at_most: Weight::from_parts(1_000_000_000, 64 * 1024),
 						call: <T as Config>::RuntimeCall::from(
 							Call::<T>::mint_collection_received {
@@ -739,7 +739,7 @@ pub mod pallet {
 				Xcm(vec![
 					UnpaidExecution { weight_limit: Unlimited, check_origin: None },
 					Transact {
-						origin_kind: OriginKind::Xcm,
+						origin_kind: OriginKind::SovereignAccount,
 						require_weight_at_most: Weight::from_parts(1_000_000_000, 64 * 1024),
 						call: <T as Config>::RuntimeCall::from(
 							Call::<T>::mint_non_fungible_received {
@@ -1029,7 +1029,7 @@ pub mod pallet {
 				Xcm(vec![
 					UnpaidExecution { weight_limit: Unlimited, check_origin: None },
 					Transact {
-						origin_kind: OriginKind::Xcm,
+						origin_kind: OriginKind::SovereignAccount,
 						require_weight_at_most: Weight::from_parts(1_000_000_000, 64 * 1024),
 						call: <T as Config>::RuntimeCall::from(
 							Call::<T>::mint_non_fungible_received {
