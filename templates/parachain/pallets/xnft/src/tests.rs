@@ -1,8 +1,7 @@
-use core::str::Bytes;
 
 use crate::{mock::*, Error, Event};
-use cumulus_primitives_core::{relay_chain::AccountId, SendError::NotApplicable};
-use frame_support::{assert_noop, assert_ok};
+use cumulus_primitives_core::SendError::NotApplicable;
+use frame_support::assert_noop;
 use sp_core::H256;
 
 #[test]
@@ -51,7 +50,7 @@ fn try_mint_collection_transfer_collection_exists_fail() {
 		);
 
 		//Lets create hash to compare
-		let collection_hash: H256 =
+		let _collection_hash: H256 =
 			"0x06fa4188b7fa31e8b2d21dc94819e22684f9e2e3995f2ca3716404e2df6b3cf0"
 				.parse()
 				.unwrap();

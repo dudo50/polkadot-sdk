@@ -10,11 +10,9 @@ use sp_runtime::{
 	BuildStorage,
 };
 
-use xcm::latest::{prelude::*, Junction, OriginKind, SendXcm, Xcm};
+use pallet_balances::AccountData;
 
-type UncheckedExtrinsic = frame_system::mocking::MockUncheckedExtrinsic<Test>;
 type Block = frame_system::mocking::MockBlock<Test>;
-type Balance = u128;
 
 // Configure a mock runtime to test the pallet.
 frame_support::construct_runtime!(
@@ -44,7 +42,7 @@ impl system::Config for Test {
 	type BlockHashCount = BlockHashCount;
 	type Version = ();
 	type PalletInfo = PalletInfo;
-	type AccountData = ();
+	type AccountData = AccountData<u128>;
 	type OnNewAccount = ();
 	type OnKilledAccount = ();
 	type SystemWeightInfo = ();
@@ -102,7 +100,6 @@ impl pallet_xnft::Config for Test {
 	type CollectionsPerParachainLimit = RegistryPerParachainCollectionLimit;
 	type NFTsPerParachainLimit = RegistryNFTsPerParachainLimit;
 	type RuntimeCall = RuntimeCall;
-	type RuntimeOrigin = RuntimeOrigin;
 	type XcmSender = XcmRouter;
 }
 
